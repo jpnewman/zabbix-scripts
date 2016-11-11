@@ -1,0 +1,12 @@
+argparse
+py-zabbix
+
+# Lint
+flake8
+
+# Test
+pytest
+pytest-html
+
+# Docs
+Sphinx

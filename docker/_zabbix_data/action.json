@@ -1,0 +1,69 @@
+{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "result": [
+        {
+          "def_longdata": "Host name: {HOST.HOST}\r\nHost IP: {HOST.IP}\r\nAgent port: {HOST.PORT}",
+          "def_shortdata": "Auto registration: {HOST.HOST}",
+          "esc_period": "0",
+          "eventsource": "2",
+          "filter": {
+              "conditions": [
+                  {
+                      "conditiontype": "24",
+                      "formulaid": "A",
+                      "operator": "2",
+                      "value": "Linux",
+                      "value2": ""
+                  }
+              ],
+              "evaltype": "0",
+              "formula": ""
+          },
+          "name": "autoregistration-linux",
+          "operations": [
+              {
+                  "esc_period": "0",
+                  "esc_step_from": "1",
+                  "esc_step_to": "1",
+                  "evaltype": "0",
+                  "opconditions": [],
+                  "operationtype": "2",
+                  "recovery": "0"
+              },
+              {
+                  "esc_period": "0",
+                  "esc_step_from": "1",
+                  "esc_step_to": "1",
+                  "evaltype": "0",
+                  "opconditions": [],
+                  "operationtype": "6",
+                  "optemplate": [
+                      {
+                          "templateid": "10001"
+                      }
+                  ],
+                  "recovery": "0"
+              },
+              {
+                  "esc_period": "0",
+                  "esc_step_from": "1",
+                  "esc_step_to": "1",
+                  "evaltype": "0",
+                  "opconditions": [],
+                  "operationtype": "4",
+                  "opgroup": [
+                      {
+                          "groupid": "2"
+                      }
+                  ],
+                  "recovery": "0"
+              }
+          ],
+          "r_longdata": "",
+          "r_shortdata": "",
+          "recoveryOperations": [],
+          "status": "0"
+        }
+    ]
+}

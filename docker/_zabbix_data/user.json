@@ -1,0 +1,11 @@
+{
+    "id": "1",
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "name": "Zabbix",
+            "theme": "dark-theme",
+            "userid": "1"
+        }
+    ]
+}
