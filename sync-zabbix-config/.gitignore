@@ -5,6 +5,9 @@ _data*/
 # Log Files
 *.log
 
+# Reports
+*.html
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

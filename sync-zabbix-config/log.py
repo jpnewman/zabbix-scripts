@@ -102,7 +102,8 @@ def verbose(msg, print_date=DEFAULT_PRINT_DATE, print_hostname=DEFAULT_PRINT_HOS
 def debug(debug_object,
           print_date=DEFAULT_PRINT_DATE,
           print_hostname=DEFAULT_PRINT_HOSTNAME,
-          print_data_type=True):
+          print_data_type=True,
+          skip_errors=False):
     """Print Debug Level."""
     if type(debug_object).__name__ == 'str':
         print_color_prefix("DEBUG: ", MAGENTA, debug_object, print_date, print_hostname)
@@ -111,6 +112,11 @@ def debug(debug_object,
         if print_data_type:
             print_color(type(debug_object).__name__)
         print(debug_object)
+
+    if skip_errors:
+        warn("Skipping Error!")
+    else:
+        raise BaseException()
 
 
 def todo(msg, print_date=DEFAULT_PRINT_DATE, print_hostname=DEFAULT_PRINT_HOSTNAME):

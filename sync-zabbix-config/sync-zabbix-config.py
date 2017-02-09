@@ -20,6 +20,10 @@ DEFAULT_QUARY_OUTPUT = 'extend'
 SCRIPT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
 
+DEBUG = False
+SKIP_ERRORS = False
+
+
 # Based on code from: http://stackoverflow.com/questions/27838319/python-delete-all-specific-keys-in-json
 def remove_dict_item_by_keys(d, key_pattens=[]):
     """Remove items from dict by keys."""
@@ -52,6 +56,9 @@ def remove_empty_dict_items(d):
 
 def _parse_args():
     """Parse Command Arguments."""
+    global DEBUG
+    global SKIP_ERRORS
+
     desc = 'Python zabbix api'
     parser = argparse.ArgumentParser(description=desc)
     parser.add_argument('action',
@@ -84,6 +91,14 @@ def _parse_args():
     parser.add_argument('-l', '--log-level',
                         default='INFO',
                         help='Log Level')
+    parser.add_argument('-s', '--skip-errors',
+                        action='store_true',
+                        default=False,
+                        help="Skip Errors")
+    parser.add_argument('--debug',
+                        action='store_true',
+                        default=False,
+                        help='Debug output')
     parser.add_argument('-d', '--dry-run',
                         action='store_true',
                         default=False,
@@ -114,6 +129,9 @@ def _parse_args():
     else:
         args.objects = zo.ZABBIX_OBJECTS.keys()
 
+    DEBUG = args.debug
+    SKIP_ERRORS = args.skip_errors
+
     return args
 
 
@@ -125,7 +143,14 @@ def export_object(zapi,
                       'output': DEFAULT_OUTPUT
                   }):
     """Export Zabbix Object."""
-    objects = zapi.do_request(object_name + '.get', params)
+    try:
+        objects = zapi.do_request(object_name + '.get', params)
+    except:
+        log.error("Get Failed!")
+        log.debug(sys.exc_info(),
+                  print_data_type=False,
+                  skip_errors=SKIP_ERRORS)
+        return
 
     if not objects['result'] and exclude_empty_objects:
         print("{0} (EMPTY)".format(object_name.title()))
@@ -186,7 +211,9 @@ def create_object(zapi,
         return zapi.do_request(object_name + '.create', object_data)
     except:
         log.error("Create Failed!")
-        log.debug(sys.exc_info(), print_data_type=False)
+        log.debug(sys.exc_info(),
+                  print_data_type=False,
+                  skip_errors=SKIP_ERRORS)
         return {}
 
 
@@ -207,7 +234,9 @@ def update_object(zapi,
         return zapi.do_request(object_name + '.update', object_data)
     except:
         log.error("Update Failed!")
-        log.debug(sys.exc_info(), print_data_type=False)
+        log.debug(sys.exc_info(),
+                  print_data_type=False,
+                  skip_errors=SKIP_ERRORS)
         return {}
 
 
@@ -299,6 +328,9 @@ def main():
     """Main."""
 
     args = _parse_args()
+
+    if SKIP_ERRORS:
+        log.warn('Skipping Errors!')
 
     # Create ZabbixAPI class instance
     zapi = ZabbixAPI(url=args.server, user='Admin', password='zabbix')
