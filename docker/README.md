@@ -33,7 +33,7 @@ chmod u+x zabbiz_docker.sh
 
 ## Auto-registration
 
-After above a minute the agents should be automatically registered with the Zabbix Server.  
+After about a minute the agents should be automatically registered with the Zabbix Server.
 
 *e.g.* <http://localhost:32782/hosts.php>
 
