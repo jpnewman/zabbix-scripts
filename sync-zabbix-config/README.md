@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ### Optional Arguments
 
 |Argument|Description|Default|
-|---|---|---|---|
+|---|---|---|
 |```-u```<br />```--user```|Zabbix Username|Admin|
 |```-p```<br />```--password```|Zabbix Password|zabbix|
 |```-o```<br />```--objects```|Sync specific Zabbix Objects|Defined in script variable ```ZABBIX_OBJECTS``` keys|
